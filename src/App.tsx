@@ -1,16 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [searchType, setSearchType] = useState<string>("person")
 	const [carType, setCarType] = useState<string>("auto")
+  const [location, setLocation] = useState<string>("")
 
-	const changeSearchType = e => {
+	const changeSearchType = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchType(e.target.value)
 	}
-	const changeCarType = e => {
+	const changeCarType = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCarType(e.target.value)
 	}
 
@@ -55,7 +54,7 @@ function App() {
 				</div>
 				<div>
           <input
-						type="pickup"
+						type="radio"
             id="pickup"
             name="pikup"
             value="pickup"
@@ -74,6 +73,13 @@ function App() {
 					<label htmlFor="rv">Recreational Vehicles</label>
         </div>
 			</fieldset>
+      <div>
+        <p>Write your zip code or city</p>
+        <input
+          type="text"
+          onChange={(e) => setLocation(e.target.value)}/>
+        <input type="submit"/>
+      </div>
 		</div>
   )
 }

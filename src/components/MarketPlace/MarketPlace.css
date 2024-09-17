@@ -1,0 +1,123 @@
+.marketplace {
+  padding: 20px;
+}
+
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.car-list-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.sort-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sort-by-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sort-by-wrapper label {
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.sort-by-wrapper select {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.car-item {
+  height: 100%;
+}
+
+.car-item img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.source-Facebook {
+  border-color: #4267b2 !important;
+}
+
+.source-Craigslist {
+  border-color: #c7161e !important;
+}
+
+.source-Ebay {
+  border-color: #f90 !important;
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    opacity: 0;
+  }
+
+  .sidebar.show {
+    max-height: 2000px; /* Adjust this value based on your content */
+    padding: 20px;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 576px) {
+  .sort-by-wrapper {
+    flex-wrap: nowrap;
+  }
+
+  .sort-by-wrapper label {
+    margin-bottom: 0;
+  }
+
+  .sort-controls {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .form-check.form-switch {
+    margin-left: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .car-list-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sidebar {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    padding: 20px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .sort-controls > div:first-child {
+    margin-right: 1rem;
+  }
+}

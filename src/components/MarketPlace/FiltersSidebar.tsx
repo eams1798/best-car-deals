@@ -51,7 +51,12 @@ const FiltersSidebar = ({ isSidebarVisible }: { isSidebarVisible: boolean }) => 
         </div>
         <div className="filter-group">
           <h3>Distance (mi)</h3>
-          <Form.Control type="number" name="distance" placeholder="Max. Distance" />
+          <Form.Control
+            type="number"
+            name="distance"
+            placeholder="Max. Distance"
+            min="1"
+            max="500" />
         </div>
         <div className="filter-group">
           <h3>Mileage</h3>

@@ -1,6 +1,6 @@
 import { chromium, Page } from 'playwright';
 import { CLCarFilters, CLRVFilters, FoundCar as Car } from '../interfaces';
-import { EAutoBodyType } from '../interfaces/craigslistEnums';
+import { EAutoBodyType } from '../interfaces/craigslistTypes';
 /* import { writeFileSync } from 'fs';
  */
 const CAR_ITEM_CLASS = 'li.cl-search-result';

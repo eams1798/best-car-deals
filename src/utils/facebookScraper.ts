@@ -5,8 +5,8 @@ const CAR_ITEM_CLASS = '.x9f619.x78zum5.x1r8uery.xdt5ytf.x1iyjqo2.xs83m0k.x1e558
 const CLOSE_LOGIN_BUTTON_SELECTOR = "div[aria-label='Close']";
 const GOTO_LOCATION_SELECTOR = ".xod5an3 div#seo_filters > div[role='button']";
 
-const buildUrl = (carCategory: string, cookies: string[]): string => {
-  return `https://www.facebook.com/marketplace/categories/${carCategory}?${cookies.join('&')}`;
+const buildUrl = (cookies: string[]): string => {
+  return `https://www.facebook.com/marketplace/category/vehicles?${cookies.join('&')}`;
 };
 
 const gotoLocation = async (page: Page, location: string) => {
@@ -77,17 +77,17 @@ const facebookScraper = async (location: string, filters?: Filters): Promise<Car
   const cookies: string[] = [];
   if (filters) {
     for (const [key, value] of Object.entries(filters)) {
-      if (key !== 'vehicleType' && key !== 'bodyType' && value) {
+      if (key !== 'carType' && key !== 'carFaxHistory' && value) {
         cookies.push(`${key}=${value}`);
       }
     }
+    if (filters.carType) cookies.push(`carType=${filters.carType.join(',')}`);
+    if (filters.carFaxHistory) cookies.push(`carFaxHistory=${filters.carFaxHistory.join(',')}`);
   }
-
-  const carCategory = filters?.bodyType || filters?.vehicleType || 'cars';
 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto(buildUrl(carCategory, cookies));
+  await page.goto(buildUrl(cookies));
 
   await gotoLocation(page, location);
   await removeOverlay(page);
@@ -97,7 +97,7 @@ const facebookScraper = async (location: string, filters?: Filters): Promise<Car
   }
 
   await page.click("div[aria-label='Apply'] div");
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(2500);
 
   const cars = await page.$$eval(CAR_ITEM_CLASS, extractCarInfo);
   
@@ -106,12 +106,13 @@ const facebookScraper = async (location: string, filters?: Filters): Promise<Car
 };
 
 // Example usage
-/* (async () => {
+(async () => {
   const cars = await facebookScraper("Providence, RI", {
-    vehicleType: 'trucks',
+    carType: ['truck'],
+    sortBy: 'vehicle_year_descend',
     distance: 12,
   });
   console.log(cars);
-})(); */
+})();
 
 export default facebookScraper

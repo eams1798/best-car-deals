@@ -1,4 +1,5 @@
-import { EAutoTransmission, EAutoDriveTrain, EAutoCylinders, ECondition, ELanguage, E_RVType, EAutoPaint, EAutoTitleStatus, EAutoFuelType, EAutoBodyType } from "./craigslistEnums"
+import { EAutoTransmission, EAutoDriveTrain, EAutoCylinders, ECondition, ELanguage, E_RVType, EAutoPaint, EAutoTitleStatus, EAutoFuelType, EAutoBodyType } from "./craigslistTypes"
+import { FBTopLevelVehicleType, FBCarType, FBSellerType, ECarfaxHistory, FBSortBy } from "./facebookTypes"
 
 export interface Car {
   id: number;
@@ -23,8 +24,9 @@ export interface Car {
 
 export interface FBCarFilters {
   distance?: number;
-  vehicleType?: 'cars' | 'trucks' | 'rv-campers';
-  bodyType?: 'convertibles' | 'coupes' | 'hatchbacks' | 'minivans' | 'sedans' | 'suvs' | 'trucks';
+  topLevelVehicleType?: FBTopLevelVehicleType;
+  carType?: FBCarType[];
+  sellerType?: FBSellerType;
   minPrice?: number;
   maxPrice?: number;
   deliveryMethod?: string;
@@ -36,6 +38,8 @@ export interface FBCarFilters {
   minMileage?: number;
   maxMileage?: number;
   transmissionType?: string;
+  carFaxHistory?: ECarfaxHistory[];
+  sortBy?: FBSortBy
 }
 
 export interface FoundCar {

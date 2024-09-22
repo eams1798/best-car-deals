@@ -1,5 +1,5 @@
 import { chromium, Page } from 'playwright';
-import { CarFilters as Filters, FoundCarAtFacebook as Car } from './interfaces';
+import { FBCarFilters as Filters, FoundCar as Car } from '../interfaces';
 
 const CAR_ITEM_CLASS = '.x9f619.x78zum5.x1r8uery.xdt5ytf.x1iyjqo2.xs83m0k.x1e558r4.x150jy0e.x1iorvi4.xjkvuk6.xnpuxes.x291uyu.x1uepa24';
 const CLOSE_LOGIN_BUTTON_SELECTOR = "div[aria-label='Close']";
@@ -61,8 +61,8 @@ const extractCarInfo = (elements: Element[]): Car[] => {
       location: location ?? '',
       mileage: mileage ? Number(mileage.replace('miles', '').replace('K', '000')) : 0,
     };
-  }).filter((car): car is Car => 
-    !!car.url && !!car.img && !!car.title && !!car.newPrice && !!car.location && !!car.mileage
+  }).filter((car) => 
+    !!car.url && !!car.title && !!car.newPrice && !!car.mileage
   );
 };
 

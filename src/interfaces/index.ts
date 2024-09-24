@@ -1,5 +1,5 @@
 import { EAutoTransmission, EAutoDriveTrain, EAutoCylinders, ECondition, ELanguage, E_RVType, EAutoPaint, EAutoTitleStatus, EAutoFuelType, EAutoBodyType } from "./craigslistTypes"
-import { FBTopLevelVehicleType, FBCarType, FBSellerType, ECarfaxHistory, FBSortBy } from "./facebookTypes"
+import { FBTopLevelVehicleType, FBCarType, FBSellerType, ECarfaxHistory, FBSortBy, FBCondition } from "./facebookTypes"
 
 export interface Car {
   id: number;
@@ -22,24 +22,43 @@ export interface Car {
   features: string[];
 }
 
-export interface FBCarFilters {
+export interface DefaultCarFilters {
+  location: string;
   distance?: number;
-  topLevelVehicleType?: FBTopLevelVehicleType;
-  carType?: FBCarType[];
-  sellerType?: FBSellerType;
+  sort?: string
+  sellerType?: string;
+  vehicleType?: string;
+  bodyType?: string;
   minPrice?: number;
   maxPrice?: number;
-  deliveryMethod?: string;
-  itemCondition?: string;
+  condition?: string;
+  transmissionType?: string;
   make?: string;
   model?: string;
   minYear?: number;
   maxYear?: number;
   minMileage?: number;
   maxMileage?: number;
-  transmissionType?: string;
+}
+
+export interface FBCarFilters {
+  distance?: number; /*done*/
+  topLevelVehicleType?: FBTopLevelVehicleType; /*done*/
+  carType?: FBCarType[]; /*done*/
+  sellerType?: FBSellerType; /*done*/
+  minPrice?: number; /*done*/
+  maxPrice?: number; /*done*/
+  deliveryMethod?: string;
+  itemCondition?: FBCondition[]; /*done*/
+  make?: string; /*done*/
+  model?: string; /*done*/
+  minYear?: number; /*done*/
+  maxYear?: number; /*done*/
+  minMileage?: number; /*done*/
+  maxMileage?: number; /*done*/
+  transmissionType?: string; /*done*/
   carFaxHistory?: ECarfaxHistory[];
-  sortBy?: FBSortBy
+  sortBy?: FBSortBy /*done*/
 }
 
 export interface FoundCar {
@@ -54,37 +73,38 @@ export interface FoundCar {
 }
 
 export interface CraigslistFiters {
-  vehicleType?: "cars" | "trucks" | "rv-campers";
-  purveyor?: "owner" | "dealer",
+  vehicleType?: "cars" | "trucks" | "rv-campers"; /*done*/
+  purveyor?: "owner" | "dealer", /*done*/
   bundleDuplicates?: 0 | 1;
   postedToday?: 0 | 1;
   hasPic?: 0 | 1;
   srchType?: "T";
-  search_distance?: number;
+  search_distance?: number; /*done*/
   postal?: string;
-  min_price?: number;
-  max_price?: number;
+  min_price?: number; /*done*/
+  max_price?: number; /*done*/
   min_monthly_payment?: number;
   max_monthly_payment?: number;
-  auto_make_model?: string;
-  min_auto_miles?: number;
-  max_auto_miles?: number;
-  min_auto_year?: number;
-  max_auto_year?: number;
-  auto_transmission?: EAutoTransmission;
+  auto_make_model?: string; /*done*/
+  min_auto_miles?: number; /*done*/
+  max_auto_miles?: number; /*done*/
+  min_auto_year?: number; /*done*/
+  max_auto_year?: number; /*done*/
+  auto_transmission?: EAutoTransmission; /*done*/
   auto_drivetrain?: EAutoDriveTrain;
   auto_cylinders?: EAutoCylinders;
-  condition?: ECondition;
+  condition?: ECondition[]; /*done*/
   auto_fuel_type?: EAutoFuelType;
   auto_paint?: EAutoPaint;
   auto_title_status?: EAutoTitleStatus;
   language?: ELanguage;
+  sort?: "date" | "dateoldest" | "priceasc" | "pricedsc"; /*done*/
 }
 
 export interface CLCarFilters extends CraigslistFiters {
-  auto_bodytype?: EAutoBodyType;
+  auto_bodytype?: EAutoBodyType[]; /*done*/
 }
 
 export interface CLRVFilters extends CraigslistFiters {
-  rv_type?: E_RVType;
+  rv_type?: E_RVType[]; /*done*/
 }

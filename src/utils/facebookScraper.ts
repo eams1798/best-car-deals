@@ -77,12 +77,13 @@ const facebookScraper = async (location: string, filters?: Filters): Promise<Car
   const cookies: string[] = [];
   if (filters) {
     for (const [key, value] of Object.entries(filters)) {
-      if (key !== 'carType' && key !== 'carFaxHistory' && value) {
+      if (key !== 'carType' && key !== 'carFaxHistory' && key !== 'itemCondition' && value) {
         cookies.push(`${key}=${value}`);
       }
     }
     if (filters.carType) cookies.push(`carType=${filters.carType.join(',')}`);
     if (filters.carFaxHistory) cookies.push(`carFaxHistory=${filters.carFaxHistory.join(',')}`);
+    if (filters.itemCondition) cookies.push(`itemCondition=${filters.itemCondition.join(',')}`);
   }
 
   const browser = await chromium.launch({ headless: true });

@@ -1,8 +1,8 @@
 import { chromium, Page } from 'playwright';
 import { CLCarFilters, CLRVFilters, FoundCar as Car } from '../interfaces';
-import { EAutoBodyType } from '../interfaces/craigslistTypes';
-/* import { writeFileSync } from 'fs';
- */
+import { E_RVType, EAutoBodyType, ECondition } from '../interfaces/craigslistTypes';
+import { writeFileSync } from 'fs';
+
 const CAR_ITEM_CLASS = 'li.cl-search-result';
 /* const CLOSE_LOGIN_BUTTON_SELECTOR = "div[aria-label='Close']";
 const GOTO_LOCATION_SELECTOR = ".xod5an3 div#seo_filters > div[role='button']"; */
@@ -75,14 +75,23 @@ const craigslistScraper = async (location: string, filters?: CLCarFilters | CLRV
       newFilters = ({...filters} as CLRVFilters);
       carCategory = 'rva';
     } else if (filters?.vehicleType === 'trucks') {
-      newFilters = ({...filters, auto_bodytype: EAutoBodyType.Pickup} as CLCarFilters);
+      newFilters = ({...filters, auto_bodytype: [EAutoBodyType.Pickup]} as CLCarFilters);
     } else {
       newFilters = ({...filters} as CLCarFilters);
     }
 
     for (const [key, value] of Object.entries(newFilters)) {
-      if (key !== 'vehicleType' && value) {
+      if (key !== 'vehicleType' && key !== 'auto_bodytype' && key !== 'condition' && key !== 'rv_type' && value) {
         cookies.push(`${key}=${value}`);
+      }
+      if (key === 'auto_bodytype') {
+        cookies.push(value.map((v: EAutoBodyType) => `auto_bodytype=${v}`).join('&'));
+      }
+      if (key === 'rv_type') {
+        cookies.push(value.map((v: E_RVType) => `rv_type=${v}`).join('&'));
+      }
+      if (key === 'condition') {
+        cookies.push(value.map((v: ECondition) => `condition=${v}`).join('&'));
       }
     }
   }
@@ -111,15 +120,16 @@ const craigslistScraper = async (location: string, filters?: CLCarFilters | CLRV
 };
 
 // Example usage
-/* (async () => {
+(async () => {
   const cars = await craigslistScraper("Providence, RI", {
     vehicleType: 'trucks',
+    sort: 'priceasc',
     search_distance: 12,
   });
 
   writeFileSync('./scrapedData.ts', JSON.stringify(cars));
 })();
- */
+
 export default craigslistScraper
 
 

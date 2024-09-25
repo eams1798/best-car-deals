@@ -23,22 +23,24 @@ export interface Car {
 }
 
 export interface DefaultCarFilters {
-  location: string;
-  distance?: number;
-  sort?: string
-  sellerType?: string;
-  vehicleType?: string;
-  bodyType?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  source: 'Facebook' | 'Craigslist'; /*done*/
+  location: string; /*done*/
+  distance?: number; /*done*/
+  sort?: string /*done*/
+  sellerType?: string; /*done*/
+  vehicleType?: string; /*done*/
+  bodyType?: string; /*done*/
+  minPrice?: number; /*done*/
+  maxPrice?: number; /*done*/
+  color?: string;
   condition?: string;
-  transmissionType?: string;
-  make?: string;
-  model?: string;
-  minYear?: number;
-  maxYear?: number;
-  minMileage?: number;
-  maxMileage?: number;
+  transmissionType?: string; /*done*/
+  make?: string; /*done*/
+  model?: string; /*done*/
+  minYear?: number; /*done*/
+  maxYear?: number; /*done*/
+  minMileage?: number; /*done*/
+  maxMileage?: number; /*done*/
 }
 
 export interface FBCarFilters {
@@ -55,6 +57,8 @@ export interface FBCarFilters {
   minYear?: number; /*done*/
   maxYear?: number; /*done*/
   minMileage?: number; /*done*/
+  interiorColor?: string;
+  exteriorColor?: string; /*done*/
   maxMileage?: number; /*done*/
   transmissionType?: string; /*done*/
   carFaxHistory?: ECarfaxHistory[];
@@ -95,7 +99,7 @@ export interface CraigslistFiters {
   auto_cylinders?: EAutoCylinders;
   condition?: ECondition[]; /*done*/
   auto_fuel_type?: EAutoFuelType;
-  auto_paint?: EAutoPaint;
+  auto_paint?: EAutoPaint; /*done*/
   auto_title_status?: EAutoTitleStatus;
   language?: ELanguage;
   sort?: "date" | "dateoldest" | "priceasc" | "pricedsc"; /*done*/

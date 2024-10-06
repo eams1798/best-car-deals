@@ -1,6 +1,13 @@
 import { Form, Row, Col } from 'react-bootstrap';
 
-const SortControls = ({ sortBy, setSortBy }: { sortBy: string, setSortBy: (value: string) => void }) => {
+interface ISortControlsProps {
+  sortBy: string;
+  setSortBy: (value: string) => void;
+  reversedSort: boolean;
+  setReversedSort: (value: boolean) => void;
+}
+
+const SortControls = ({ sortBy, setSortBy, reversedSort, setReversedSort }: ISortControlsProps) => {
   return (
     <div className="sort-controls">
       <Row className="align-items-center">
@@ -14,11 +21,12 @@ const SortControls = ({ sortBy, setSortBy }: { sortBy: string, setSortBy: (value
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
           >
+            <option value="default">Best Match</option>
             <option value="price">Price (Low to High)</option>
-            <option value="year">Year (Old to New)</option>
+            <option value="year">Year (New to Old)</option>
             <option value="mileage">Mileage (Low to High)</option>
             <option value="distance">Distance (Low to High)</option>
-            <option value="make">Make (A-Z)</option>
+            <option value="date">Date (New to Old)</option>
           </Form.Control>
         </Col>
         <Col xs={12} sm={6} className="mt-2 mt-sm-0">
@@ -26,6 +34,8 @@ const SortControls = ({ sortBy, setSortBy }: { sortBy: string, setSortBy: (value
             type="switch"
             id="reverse-sort"
             label="Reverse Sort"
+            checked={reversedSort}
+            onChange={() => setReversedSort(!reversedSort)}
           />
         </Col>
       </Row>

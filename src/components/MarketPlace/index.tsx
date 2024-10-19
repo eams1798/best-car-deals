@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 /* import { carList } from '../../data'; */
 import FiltersSidebar from './FiltersSidebar';
 import SortControls from './SortControls';
 import CarList from './CarList';
 import './MarketPlace.css';
-import { FoundCar } from '../../interfaces';
+import { DefaultCarFilters } from '../../interfaces';
 
-const MarketPlace = () => {
-  const [sortBy, setSortBy] = useState<string>('default');
-  const [reversedSort, setReversedSort] = useState<boolean>(false);
-  const [carList, setCarList] = useState<FoundCar[]>([]);
+interface IMarketPlaceProps {
+  filters: DefaultCarFilters,
+  setFilters: (value: React.SetStateAction<DefaultCarFilters>) => void
+};
+
+const MarketPlace = ({ filters, setFilters }: IMarketPlaceProps) => {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   const toggleSidebar = () => {
@@ -28,15 +30,15 @@ const MarketPlace = () => {
           {isSidebarVisible ? 'Hide Filters' : 'Show Filters'}
         </Button>
         <Col xs={12} md={4} lg={3}>
-          <FiltersSidebar setCarList={setCarList} isSidebarVisible={isSidebarVisible} sortBy={sortBy} reversedSort={reversedSort} />
+          <FiltersSidebar filters={filters} setFilters={setFilters} isSidebarVisible={isSidebarVisible} />
         </Col>
         <Col xs={12} md={8} lg={9}>
           <section className="car-list">
             <div className="car-list-header">
               <h2>Found cars</h2>
-              <SortControls sortBy={sortBy} setSortBy={setSortBy} reversedSort={reversedSort} setReversedSort={setReversedSort} />
+              <SortControls filters={filters} setFilters={setFilters} />
             </div>
-            <CarList carList={carList} />
+            <CarList filters={{ ...filters }} />
           </section>
         </Col>
       </Row>

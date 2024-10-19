@@ -69,15 +69,16 @@ export interface FBCarFilters {
 }
 
 export interface FoundCar {
-  source: string;
-  url: string;
+  source?: string;
+  url?: string;
   img?: string;
-  title: string;
+  title?: string;
   oldPrice?: number;
-  newPrice: number;
+  newPrice?: number;
   monthlyPayment?: number;
   location?: string;
-  mileage: number;
+  mileage?: number;
+  errorMessage?: string;
 }
 
 export interface CraigslistFiters {

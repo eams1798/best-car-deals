@@ -1,13 +1,12 @@
 import { Form, Row, Col } from 'react-bootstrap';
+import { DefaultCarFilters } from '../../interfaces';
 
 interface ISortControlsProps {
-  sortBy: string;
-  setSortBy: (value: string) => void;
-  reversedSort: boolean;
-  setReversedSort: (value: boolean) => void;
+  filters: DefaultCarFilters;
+  setFilters: (value: React.SetStateAction<DefaultCarFilters>) => void;
 }
 
-const SortControls = ({ sortBy, setSortBy, reversedSort, setReversedSort }: ISortControlsProps) => {
+const SortControls = ({ filters, setFilters }: ISortControlsProps) => {
   return (
     <div className="sort-controls">
       <Row className="align-items-center">
@@ -18,8 +17,8 @@ const SortControls = ({ sortBy, setSortBy, reversedSort, setReversedSort }: ISor
           <Form.Control
             as="select"
             id="sort-select"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
+            defaultValue={"default"}
+            onChange={(e) => setFilters({ ...filters, sort: e.target.value })}
           >
             <option value="default">Best Match</option>
             <option value="price">Price (Low to High)</option>
@@ -34,8 +33,8 @@ const SortControls = ({ sortBy, setSortBy, reversedSort, setReversedSort }: ISor
             type="switch"
             id="reverse-sort"
             label="Reverse Sort"
-            checked={reversedSort}
-            onChange={() => setReversedSort(!reversedSort)}
+            defaultChecked={false}
+            onChange={(e) => setFilters({ ...filters, reversed_sort: e.target.checked })}
           />
         </Col>
       </Row>

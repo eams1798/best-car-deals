@@ -1,32 +1,41 @@
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { DefaultCarFilters, FoundCar } from '../../interfaces';
-import { useEffect, useState } from 'react';
-import { getAllCars } from '../../services/cars';
+import { DefaultCarFilters } from '../../interfaces';
+import { useEffect, useRef, useState } from 'react';
+import GMPAutocompleteInput from '../GMPAutocompleteInput';
+import { parseLocation } from '../../utils/parseLocation';
 
 interface IFiltersSidebarProps {
-  setCarList: (value: React.SetStateAction<FoundCar[]>) => void;
+  filters: DefaultCarFilters
+  setFilters: React.Dispatch<React.SetStateAction<DefaultCarFilters>>
   isSidebarVisible: boolean;
-  sortBy: string;
-  reversedSort?: boolean;
 }
 
-const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: IFiltersSidebarProps) => {
-  const [filters, setFilters] = useState<DefaultCarFilters>({sort: sortBy, reversed_sort: reversedSort});
-
-  useEffect(() => {
-    setFilters({ ...filters, sort: sortBy, reversed_sort: reversedSort });
-  }, [sortBy, reversedSort]);
-
-  /* useEffect(() => {
-    console.log('filters', filters);
-  }, [filters]); */
+const FiltersSidebar = ({ filters, setFilters, isSidebarVisible }: IFiltersSidebarProps) => {
+  const locationRef = useRef<HTMLInputElement>();
+  const [newFilters, setNewFilters] = useState<DefaultCarFilters>(filters);
+  const [notification, setNotification] = useState<string>('');
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const cars = await getAllCars(filters);
-    setCarList(cars);
+    setFilters({
+      ...newFilters,
+      location: locationRef.current?.value ? parseLocation(locationRef.current?.value) : undefined
+    });
+    setNotification('Filters applied. Looading could take +10 seconds...');
+    console.log('newFilters', newFilters);
   };
 
+  useEffect(() => {
+    console.log(newFilters);
+  }, [newFilters]);
+
+  useEffect(() => {
+    if (notification) {
+      setTimeout(() => {
+        setNotification('');
+      }, 3000);
+    }
+  })
   return (
     <aside className={`sidebar ${isSidebarVisible ? 'show' : ''}`}>
       <h2>Filters</h2>
@@ -44,9 +53,9 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                   value={source}
                   label={source}
                   onChange={(e) => {
-                    setFilters({
-                      ...filters,
-                      source: e.target.checked ? [...(filters.source || []), e.target.value]: (filters.source || []).filter((f) => f !== e.target.value)
+                    setNewFilters({
+                      ...newFilters,
+                      source: e.target.checked ? [...(newFilters.source || []), e.target.value]: (newFilters.source || []).filter((f) => f !== e.target.value)
                     });
                   }}
                 />
@@ -63,8 +72,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                   value={seller.toLowerCase()}
                   label={seller}
                   onChange={(e) => {
-                    setFilters({
-                      ...filters,
+                    setNewFilters({
+                      ...newFilters,
                       sellerType: e.target.value
                     });
                   }}
@@ -84,8 +93,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="1"
                 max="500"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     distance: parseInt(e.target.value)
                   });
                 }}
@@ -93,17 +102,7 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
             </Col>
             <Col>
               <h3>Location</h3>
-              <Form.Control
-                type="text"
-                name="distance"
-                placeholder="zipcode/city"
-                onChange={(e) => {
-                  setFilters({
-                    ...filters,
-                    location: e.target.value
-                  });
-                }}
-                />
+              <GMPAutocompleteInput ref={locationRef} />
             </Col>
           </Row>
         </div>
@@ -118,8 +117,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
               value={type.toLowerCase().replace(' ', '-')}
               label={type}
               onChange={(e) => {
-                setFilters({
-                  ...filters,
+                setNewFilters({
+                  ...newFilters,
                   vehicleType: e.target.value
                 });
               }}
@@ -135,8 +134,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 name="make"
                 placeholder="Enter make"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     make: e.target.value.toLowerCase()
                   });
                 }}
@@ -149,8 +148,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 name="model"
                 placeholder="Enter model"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     model: e.target.value.toLowerCase()
                   });
                 }}
@@ -169,9 +168,9 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
               value={type.toLowerCase().replace(' ', '-')}
               label={type}
               onChange={(e) => {
-                setFilters({
-                  ...filters,
-                  bodyType: e.target.checked ? [...(filters.bodyType || []), e.target.value]: (filters.bodyType || []).filter((f) => f !== e.target.value)
+                setNewFilters({
+                  ...newFilters,
+                  bodyType: e.target.checked ? [...(newFilters.bodyType || []), e.target.value]: (newFilters.bodyType || []).filter((f) => f !== e.target.value)
                 });
               }}
             />
@@ -188,8 +187,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
               value={type.toLowerCase()}
               label={type}
               onChange={(e) => {
-                setFilters({
-                  ...filters,
+                setNewFilters({
+                  ...newFilters,
                   transmission: e.target.value
                 })
               }}
@@ -207,8 +206,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="1900"
                 max={new Date().getFullYear()}
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     minYear: parseInt(e.target.value)
                   })
                 }}
@@ -222,8 +221,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="1900"
                 max={new Date().getFullYear()}
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     maxYear: parseInt(e.target.value)
                   })
                 }}
@@ -242,8 +241,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="0"
                 max="999999"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     minMileage: parseInt(e.target.value)
                   })
                 }}
@@ -257,8 +256,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="0"
                 max="999999"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     maxMileage: parseInt(e.target.value)
                   })
                 }}
@@ -277,8 +276,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="0"
                 max="999999"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     minPrice: parseInt(e.target.value)
                   })
                 }}
@@ -292,8 +291,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
                 min="0"
                 max="999999"
                 onChange={(e) => {
-                  setFilters({
-                    ...filters,
+                  setNewFilters({
+                    ...newFilters,
                     maxPrice: parseInt(e.target.value)
                   })
                 }}
@@ -308,8 +307,8 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
             name="color"
             placeholder="Enter color"
             onChange={(e) => {
-              setFilters({
-                ...filters,
+              setNewFilters({
+                ...newFilters,
                 color: e.target.value
               })
             }}
@@ -326,19 +325,17 @@ const FiltersSidebar = ({ setCarList, isSidebarVisible, sortBy, reversedSort }: 
               value={type.toLowerCase()}
               label={type}
               onChange={(e) => {
-                setFilters({
-                  ...filters,
-                  condition: e.target.checked ? [...(filters.condition || []), e.target.value]: (filters.condition || []).filter((f) => f !== e.target.value)
+                setNewFilters({
+                  ...newFilters,
+                  condition: e.target.checked ? [...(newFilters.condition || []), e.target.value]: (newFilters.condition || []).filter((f) => f !== e.target.value)
                 });
               }}
             />
           ))}
         </div>
+        <div className="notification">{notification}</div>
         <Button variant="primary" type="button" className="w-100" onClick={onSubmit}>
           Apply Filters
-        </Button>
-        <Button variant="primary" type="button" className="w-100" onClick={() => setCarList([])}>
-          Clear List
         </Button>
       </Form>
     </aside>

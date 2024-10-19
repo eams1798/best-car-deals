@@ -1,90 +1,73 @@
-import { useState } from 'react'
-/* import { Link } from 'react-router-dom'
- */
-const MainPage = () => {
-  const [searchType, setSearchType] = useState<string>("person")
-  const [carType, setCarType] = useState<string>("auto")
-  const [location, setLocation] = useState<string>("")
+import { useRef } from 'react'
+import { Form } from 'react-bootstrap'
+import { DefaultCarFilters } from '../interfaces';
+import { useNavigate } from 'react-router-dom';
+import { parseLocation } from '../utils/parseLocation';
+import GMPAutocompleteInput from './GMPAutocompleteInput';
 
-	const changeSearchType = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchType(e.target.value)
-	}
-	const changeCarType = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCarType(e.target.value)
-	}
+const MainPage = ({filters, setFilters}: {filters: DefaultCarFilters, setFilters: React.Dispatch<React.SetStateAction<DefaultCarFilters>>}) => {
+  const navigate = useNavigate();
+  const locationRef = useRef<HTMLInputElement>();
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (filters.sellerType && filters.vehicleType) {
+      setFilters({
+        ...filters,
+        location: locationRef.current?.value ? parseLocation(locationRef.current?.value) : undefined
+      });
+      navigate('/marketplace');
+    } else {
+      alert('Please select both seller type and vehicle type');
+    }
+  };
 
   return (
 		<div>
 			<h1>Best car deal finder</h1>
-{/*       <div>
-        <Link to="/marketplace">Goto Marketplace</Link>
-      </div>
-      <div>
-        <Link to="/dealers">Goto Dealers</Link>
-      </div> */}
 			<fieldset>
 				<legend>Select your provider type:</legend>
-				<div>
-					<input
-						type="radio"
-						id="person"
-						name="person"
-						value="person"
-						checked={searchType === "person"}
-						onChange={changeSearchType}/>
-					<label htmlFor="person">Person</label>
-				</div>
-				<div>
-					<input
-						type="radio"
-						id="dealer"
-						name="dealer"
-						value="dealer"
-						checked={searchType === "dealer"}
-						onChange={changeSearchType} />
-					<label htmlFor="dealer">Dealer</label>
-				</div>
+				{['All', 'Private', 'Dealer'].map((seller) => (
+                <Form.Check
+                  key={seller}
+                  type="radio"
+                  id={seller.toLowerCase()}
+                  name="seller"
+                  value={seller.toLowerCase()}
+                  label={seller}
+                  onChange={(e) => {
+                    setFilters({
+                      ...filters,
+                      sellerType: e.target.value
+                    });
+                  }}
+                />
+              ))}
 			</fieldset>
 
 			<fieldset>
 				<legend>Select your vehicle type:</legend>
-				<div>
-          <input
-						type="radio"
-            id="auto"
-            name="auto"
-            value="auto"
-            checked={carType === "auto"}
-            onChange={changeCarType}/>
-          <label htmlFor="auto">Auto (Sedan, SUV, Van, etc)</label>
-				</div>
-				<div>
-          <input
-						type="radio"
-            id="pickup"
-            name="pikup"
-            value="pickup"
-            checked={carType === "pickup"}
-            onChange={changeCarType}/>
-					<label htmlFor="pickup">Pickups</label>
-        </div>
-				<div>
-          <input
-            type="radio"
-            id="rv"
-            name="rv"
-            value="rv"
-            checked={carType === "rv"}
-						onChange={changeCarType}/>
-					<label htmlFor="rv">Recreational Vehicles</label>
-        </div>
+				{['Auto', 'Pickup', 'RV Camper'].map((type) => (
+            <Form.Check
+              key={type}
+              type="radio"
+              id={type.toLowerCase()}
+              name="type"
+              value={type.toLowerCase().replace(' ', '-')}
+              label={type}
+              onChange={(e) => {
+                setFilters({
+                  ...filters,
+                  vehicleType: e.target.value
+                });
+              }}
+            />
+          ))}
 			</fieldset>
       <div>
         <p>Write your zip code or city</p>
-        <input
-          type="text"
-          onChange={(e) => setLocation(e.target.value)}/>
-        <input type="submit"/>
+        <GMPAutocompleteInput ref={locationRef} />
+        <input type="submit" value="Search" onClick={onSubmit} />
       </div>
 		</div>
   )

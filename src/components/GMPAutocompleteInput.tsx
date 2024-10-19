@@ -1,8 +1,9 @@
-import { forwardRef, useEffect } from 'react'
+import { forwardRef, Ref, useEffect } from 'react'
 import { Form } from 'react-bootstrap';
 
-const GMPAutocompleteInput = forwardRef((_, ref: any) => {
+const GMPAutocompleteInput = forwardRef((_, ref: Ref<HTMLInputElement>) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let autocomplete;
 
     function initMap() {
@@ -17,7 +18,7 @@ const GMPAutocompleteInput = forwardRef((_, ref: any) => {
     }
 
     initMap();
-  })
+  }, []);
 
   return (
     <Form.Control

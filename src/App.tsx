@@ -17,6 +17,7 @@ function App() {
         <Route path="/" element={<MainPage filters={filters} setFilters={setFilters} />} />
         <Route path="/dealers" element={<Dealers />} />
         <Route path="/marketplace" element={<MarketPlace filters={filters} setFilters={setFilters} />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
 		</div>

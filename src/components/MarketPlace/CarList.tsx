@@ -5,7 +5,14 @@ import { useQuery } from '@tanstack/react-query';
 import { getFilteredCars } from '../../services/cars';
 import { useEffect } from 'react';
 
-const CarList = ({ filters }: { filters: DefaultCarFilters }) => {
+interface ICarListProps {
+  filters: DefaultCarFilters
+  setIsDarkScreenVisible: (value: React.SetStateAction<boolean>) => void
+  setCurrentCar: (value: React.SetStateAction<FoundCar | undefined>) => void
+}
+
+const CarList = ({ filters, setIsDarkScreenVisible, setCurrentCar }: ICarListProps) => {
+
   const result = useQuery({
     queryKey: ['carList'],
     queryFn: () => getFilteredCars(filters)}
@@ -37,7 +44,7 @@ const CarList = ({ filters }: { filters: DefaultCarFilters }) => {
         }
         return (
         <Col key={car.url} xs={12} sm={6} lg={4} className="mb-4">
-          <CarItem car={car} />
+          <CarItem car={car} setIsDarkScreenVisible={setIsDarkScreenVisible} setCurrentCar={setCurrentCar} />
         </Col>
       )
       })}

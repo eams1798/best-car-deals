@@ -135,3 +135,7 @@
     margin-right: 1rem;
   }
 }
+
+.ai-response {
+  display: contents;
+}

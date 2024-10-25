@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 import { Car, FoundCar } from "../../interfaces"
 import { getOneCLCar } from "../../services/cars"
 import InfoTooltip from "../InfoToolTip"
+import { useState } from "react"
+import axios from "axios"
 
 const loadingMessage = "If it's not loading, go to other tab, go back this tab again and then wait for a few seconds"
 
@@ -10,6 +12,8 @@ const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
     queryKey: ['car'],
     queryFn: () => getOneCLCar(currentCar?.url as string),
   })
+
+  const [AIResponse, setAIResponse] = useState<string>('')
 
   if (result.isLoading) {
     return (
@@ -30,6 +34,41 @@ const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
     height: '300px',
     objectFit: 'cover',
   }
+
+  const showCarInfo = async (car: Car) => {
+    setAIResponse('');
+    
+    try {
+      await axios.post(`http://localhost:3000/ai-info/`, { car }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        responseType: 'stream',
+        onDownloadProgress: (progressEvent) => {
+          const data = progressEvent.event.target.responseText;
+          const lines = data
+            .split('\n')
+            .filter((line: string) => line.startsWith('data: '))
+            .map((line: string) => line.slice(6));
+  
+          let newText = '';
+          for (const line of lines) {
+            if (line === '[DONE]') continue;
+            try {
+              const text = JSON.parse(line);
+              newText += text;
+            } catch (e) {
+              console.error('Error parsing JSON:', e);
+            }
+          }
+          setAIResponse(newText);
+        }
+      });
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
   
   return (
     <div className="one-car-element" onClick={(e) => e.stopPropagation()}>
@@ -46,6 +85,13 @@ const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
       {car.description ? <p>Description: <br/> {
                               car.description?.split('\n')
                                  .map((line, index) => <span key={index}>{line}<br/></span>)}</p> : null}
+      
+      { currentCar?.url === car.url ? 
+        <div className="ai-response">
+          <button className="btn btn-primary" onClick={() => showCarInfo(car)}>Get Tips by Claude AI</button>
+          <p>{AIResponse.split('\n').map((line, index) => <span key={index}>{line}<br/></span>)}</p>
+        </div> : null
+      }
     </div>
   )
 }

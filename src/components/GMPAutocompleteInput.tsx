@@ -1,7 +1,7 @@
 import { forwardRef, Ref, useEffect } from 'react'
 import { Form } from 'react-bootstrap';
 
-const GMPAutocompleteInput = forwardRef((_, ref: Ref<HTMLInputElement>) => {
+const GMPAutocompleteInput = forwardRef((_, ref: Ref<HTMLInputElement | undefined>) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let autocomplete;
@@ -22,7 +22,7 @@ const GMPAutocompleteInput = forwardRef((_, ref: Ref<HTMLInputElement>) => {
 
   return (
     <Form.Control
-      ref={ref}
+      ref={ref as Ref<HTMLInputElement>}
       id="autocomplete-city-code"
       type="text"/>
   )

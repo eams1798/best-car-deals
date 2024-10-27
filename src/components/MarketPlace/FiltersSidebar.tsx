@@ -22,12 +22,7 @@ const FiltersSidebar = ({ filters, setFilters, isSidebarVisible }: IFiltersSideb
       location: locationRef.current?.value ? parseLocation(locationRef.current?.value) : undefined
     });
     setNotification('Filters applied. Looading could take +10 seconds...');
-    console.log('newFilters', newFilters);
   };
-
-  useEffect(() => {
-    console.log(newFilters);
-  }, [newFilters]);
 
   useEffect(() => {
     if (notification) {
@@ -44,7 +39,7 @@ const FiltersSidebar = ({ filters, setFilters, isSidebarVisible }: IFiltersSideb
           <Row>
             <Col>
               <h3>Source</h3>
-              {['Facebook', 'eBay', 'Craigslist'].map((source) => (
+              {['Facebook', 'Craigslist'].map((source) => (
                 <Form.Check
                   key={source}
                   type="checkbox"

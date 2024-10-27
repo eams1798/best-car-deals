@@ -1,13 +1,11 @@
-/* Estilos para el contenedor del tooltip */
 .tooltip-container {
     position: relative;
     display: inline-block;
 }
 
-/* Estilos para el círculo con el signo de interrogación */
 .info-circle {
     width: 24px;
-    height: 24px;/* Color azul */
+    height: 24px;
     border: 1px solid black;
     color: black;
     text-align: center;
@@ -17,7 +15,6 @@
     cursor: pointer;
 }
 
-/* Estilos para el texto del tooltip */
 .tooltip-text {
     visibility: hidden;
     width: 160px;
@@ -28,18 +25,17 @@
     padding: 8px 8px;
     position: absolute;
     z-index: 1;
-    top: 0; /* Ajusta según necesites */
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
     transition: opacity 0.3s;
 }
 
-/* Flecha del tooltip */
 .tooltip-text::after {
     content: "";
     position: absolute;
-    top: 100%; /* En la parte inferior del tooltip */
+    top: 100%;
     left: 50%;
     margin-left: -5px;
     border-width: 5px;
@@ -47,7 +43,6 @@
     border-color: #555 transparent transparent transparent;
 }
 
-/* Mostrar el tooltip al hacer hover */
 .tooltip-container:hover .tooltip-text {
     visibility: visible;
     opacity: 1;

@@ -5,7 +5,7 @@ import InfoTooltip from "../InfoToolTip"
 import { useState } from "react"
 import axios from "axios"
 
-const loadingMessage = "If it's not loading, go to other tab, go back this tab again and then wait for a few seconds"
+const loadingMessage = "If it's not loading properly, go to another tab, come back to this tab again and wait a few seconds"
 
 const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
   const result = useQuery({
@@ -39,7 +39,7 @@ const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
     setAIResponse('');
     
     try {
-      await axios.post(`http://localhost:3000/ai-info/`, { car }, {
+      await axios.post(`/api/ai-info/`, { car }, {
         headers: {
           'Content-Type': 'application/json',
         },

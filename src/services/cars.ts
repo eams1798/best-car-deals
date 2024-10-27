@@ -5,7 +5,7 @@ export const getFilteredCars = async (filters: DefaultCarFilters): Promise<Found
   console.log('fetching cars...', filters);
   
   try {
-    const response = await axios.post<FoundCar[]>(`http://localhost:3000/cars/`, { filters });
+    const response = await axios.post<FoundCar[]>(`/api/cars/`, { filters });    
     return response.data;
   } catch (error) {
     throw new AxiosError((error as Error).stack);
@@ -13,8 +13,10 @@ export const getFilteredCars = async (filters: DefaultCarFilters): Promise<Found
 };
 
 export const getOneFBCar = async (url: string): Promise<Car> => {
+  console.log('fetching a Facebook car...', url);
+
   try {
-    const response = await axios.post<FoundCar>(`http://localhost:3000/facebook/`, { url });
+    const response = await axios.post<FoundCar>(`/api/facebook/`, { url });
     return response.data;
   } catch (error) {
     throw new AxiosError((error as Error).stack);
@@ -22,17 +24,19 @@ export const getOneFBCar = async (url: string): Promise<Car> => {
 }
 
 export const getOneCLCar = async (url: string): Promise<Car> => {
+  console.log('fetching a Craigslist car...', url);
+
   try {
-    const response = await axios.post<FoundCar>(`http://localhost:3000/craigslist/`, { url });
+    const response = await axios.post<FoundCar>(`/api/craigslist/`, { url });
     return response.data;
   } catch (error) {
     throw new AxiosError((error as Error).stack);
   }
 }
 
-export const getAIInfo = async (data: Car): Promise<string> => {
+/* export const getAIInfo = async (data: Car): Promise<string> => {
   try {
-    const response = await axios.post(`http://localhost:3000/ai-info2/`, { data }, {
+    const response = await axios.post(`/api/ai-info2/`, { data }, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -63,4 +67,4 @@ export const getAIInfo = async (data: Car): Promise<string> => {
   } catch (error) {
     throw new AxiosError((error as Error).stack);
   }
-}
+} */

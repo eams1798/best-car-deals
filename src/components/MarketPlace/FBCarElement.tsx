@@ -39,7 +39,7 @@ const FBCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
     setAIResponse('');
     
     try {
-      await axios.post(`http://localhost:3000/ai-info/`, { car }, {
+      await axios.post(`/api/ai-info/`, { car }, {
         headers: {
           'Content-Type': 'application/json',
         },

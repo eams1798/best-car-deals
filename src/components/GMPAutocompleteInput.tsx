@@ -3,11 +3,12 @@ import { Form } from 'react-bootstrap';
 
 const GMPAutocompleteInput = forwardRef((_, ref: Ref<HTMLInputElement | undefined>) => {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    let autocomplete;
-
+    /**
+     * Initialize the Google Maps Autocomplete API to allow user to search and select from a list of cities or zipcodes.
+     * @see https://developers.google.com/maps/documentation/javascript/places-autocomplete
+     */
     function initMap() {
-      autocomplete = new google.maps.places.Autocomplete(
+      new google.maps.places.Autocomplete(
         document.getElementById('autocomplete-city-code') as HTMLInputElement,
         {
           componentRestrictions: {country: 'us'},

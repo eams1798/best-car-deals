@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "bash build.sh",
+    "start": "node ./server.cjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -16,6 +17,8 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "http-proxy-middleware": "^3.0.3",
     "playwright": "^1.47.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.4",
@@ -25,6 +28,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/axios": "^0.14.0",
+    "@types/express": "^5.0.0",
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

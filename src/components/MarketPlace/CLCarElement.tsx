@@ -18,7 +18,7 @@ const CLCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
   if (result.isLoading) {
     return (
       <div onClick={(e) => e.stopPropagation()}>
-        <a href={currentCar?.url}>Contact with seller</a>
+        <a href={currentCar?.url} target="_blank">Contact with seller</a>
         <p>Loading... <InfoTooltip message={loadingMessage} /></p>
       </div>)
   }

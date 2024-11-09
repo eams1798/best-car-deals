@@ -18,7 +18,7 @@ const FBCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
   if (result.isLoading) {
     return (
       <div onClick={(e) => e.stopPropagation()}>
-        <a href={currentCar?.url}>Contact with seller</a>
+        <a href={currentCar?.url} target="_blank">Contact with seller</a>
         <p>Loading... <InfoTooltip message={loadingMessage} /></p>
       </div>)
   }
@@ -72,7 +72,7 @@ const FBCarElement = ({currentCar}: {currentCar?: FoundCar}) => {
 
   return (
     <div className="one-car-element" onClick={(e) => e.stopPropagation()}>
-      <a href={currentCar?.url}>Contact with seller</a>
+      <a href={currentCar?.url} target="_blank">Contact with seller</a>
       <p>{car.title} <InfoTooltip message={loadingMessage} /></p>
       <img src={car.image} alt={car.title} style={styleImg} />
       {car.location ? <p>Location: {car.location}</p> : null}

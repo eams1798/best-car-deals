@@ -33,7 +33,7 @@ const MainPage = ({filters, setFilters}: {filters: DefaultCarFilters, setFilters
       }
     }>
 			<h1>Best car deal finder</h1>
-      <h3 style={{
+      {/* <h3 style={{
         color: 'red',
         textAlign: 'center'
         }}>
@@ -46,7 +46,7 @@ const MainPage = ({filters, setFilters}: {filters: DefaultCarFilters, setFilters
         <a
           href="https://github.com/eams1798/best-car-deals/blob/main/README.md"
           target="_blank"><span style={{color: 'yellow'}}> here.</span>
-        </a></h3>
+        </a></h3> */}
 			<fieldset>
 				<legend>Select your provider type:</legend>
 				{['All', 'Private', 'Dealer'].map((seller) => (

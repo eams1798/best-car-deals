@@ -8,8 +8,7 @@
     "build": "rm -rf dist && tsc -b && vite build",
     "start": "node ./server.cjs",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "yarn build && rsync -avz --exclude .git ./ root@185.28.22.245:/var/www/html/frontend"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",

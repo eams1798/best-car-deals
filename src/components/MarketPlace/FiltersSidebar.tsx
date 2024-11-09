@@ -78,28 +78,24 @@ const FiltersSidebar = ({ filters, setFilters, isSidebarVisible }: IFiltersSideb
           </Row>
         </div>
         <div className="filter-group">
-          <Row>
-            <Col>
-              <h3>Distance (mi)</h3>
-              <Form.Control
-                type="number"
-                name="distance"
-                placeholder="Max. Distance"
-                min="1"
-                max="500"
-                onChange={(e) => {
-                  setNewFilters({
-                    ...newFilters,
-                    distance: parseInt(e.target.value)
-                  });
-                }}
-                />
-            </Col>
-            <Col>
-              <h3>Location</h3>
-              <GMPAutocompleteInput ref={locationRef} />
-            </Col>
-          </Row>
+          <h3>Distance (mi)</h3>
+          <Form.Control
+            type="number"
+            name="distance"
+            placeholder="Max. Distance"
+            min="1"
+            max="500"
+            onChange={(e) => {
+              setNewFilters({
+                ...newFilters,
+                distance: parseInt(e.target.value)
+              });
+            }}
+          />
+        </div>
+        <div className="filter-group">
+          <h3>Location</h3>
+          <GMPAutocompleteInput ref={locationRef} />
         </div>
         <div className="filter-group">
           <h3>Vehicle type</h3>

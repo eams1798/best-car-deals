@@ -5,7 +5,7 @@ export const getFilteredCars = async (filters: DefaultCarFilters): Promise<Found
   console.log('fetching cars...', filters);
   
   try {
-    const response = await axios.post<FoundCar[]>(`/api/cars/`, { filters });    
+    const response = await axios.post<FoundCar[]>(`/api/cars/`, filters);    
     return response.data;
   } catch (error) {
     throw new AxiosError((error as Error).stack);

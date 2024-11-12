@@ -87,7 +87,7 @@ const MainPage = ({filters, setFilters}: {filters: DefaultCarFilters, setFilters
           ))}
 			</fieldset>
       <div>
-        <p>Write your zip code or city</p>
+        <legend>Write your zip code or city</legend>
         <GMPAutocompleteInput ref={locationRef} />
         <input type="submit" value="Search" onClick={onSubmit} />
       </div>

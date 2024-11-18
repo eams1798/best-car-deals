@@ -90,7 +90,7 @@ VITE_GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
 ```
 7. Use `yarn dev` on each directory if you want to run them locally, or `yarn start` if you want to run them on production mode.
 
-## How to use the app
+## How to use the app (click on the images to open the video)
 1. Using the main page to start searching for cars with basic filters.
 
 [![Main page](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail1.png)](https://drive.google.com/file/d/1TFWGEmUjUASqgrVvfcE1rSmXMEhc9tj3/view?usp=drive_link)

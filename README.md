@@ -102,13 +102,13 @@ VITE_GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
 
 3. Using the sort controls and the reverse checkbox.
 
-[![Sort controls](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail3.gif)](https://drive.google.com/file/d/1UaTDZeqQgXkjsQqpJvKySmlYR9I_U7dg/view?usp=drive_link)
-[![Reverse checkbox](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail4.gif)](https://drive.google.com/file/d/1jrfI5M9WE7HKAmDJRRzH7tlR1DZbmoUC/view?usp=drive_link)
+[![Sort controls](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail3.png)](https://drive.google.com/file/d/1UaTDZeqQgXkjsQqpJvKySmlYR9I_U7dg/view?usp=drive_link)
+[![Reverse checkbox](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail4.png)](https://drive.google.com/file/d/1jrfI5M9WE7HKAmDJRRzH7tlR1DZbmoUC/view?usp=drive_link)
 
 4. Using the filters sidebar.
 
-[![Filters sidebar 1](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail5.gif)](https://drive.google.com/file/d/1EJVej4Z9wwkei6l06rweX1kO99UL9AMR/view?usp=drive_link)
-[![Filters sidebar 2](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail6.gif)](https://drive.google.com/file/d/1_RvtVHqdjCE5UV2nr81E1R0TqLx9B6nV/view?usp=drive_link)
+[![Filters sidebar 1](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail5.png)](https://drive.google.com/file/d/1EJVej4Z9wwkei6l06rweX1kO99UL9AMR/view?usp=drive_link)
+[![Filters sidebar 2](https://github.com/eams1798/projects-resources/blob/main/best_car_deals_README/thumbnail6.png)](https://drive.google.com/file/d/1_RvtVHqdjCE5UV2nr81E1R0TqLx9B6nV/view?usp=drive_link)
 
 
 ## Deployment

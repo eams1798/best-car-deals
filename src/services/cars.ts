@@ -34,37 +34,29 @@ export const getOneCLCar = async (url: string): Promise<Car> => {
   }
 }
 
-/* export const getAIInfo = async (data: Car): Promise<string> => {
+export const getAICarInfo = async (data: Car, fn: (value: React.SetStateAction<string>) => void): Promise<void> => {
   try {
-    const response = await axios.post(`/api/ai-info2/`, { data }, {
+    await axios.post(`/api/gemini/`, { data }, {
       headers: {
         'Content-Type': 'application/json',
       },
       responseType: 'stream',
       onDownloadProgress: (progressEvent) => {
-        const data = progressEvent.event.target.responseText;
-        const lines = data
-          .split('\n')
-          .filter((line: string) => line.startsWith('data: '))
-          .map((line: string) => line.slice(6));
-
+        const lines = progressEvent.event.target.responseText;
         let newText = '';
         for (const line of lines) {
-          if (line === '[DONE]') continue;
-          try {
-            const text = JSON.parse(line);
-            newText += text;
+          if (line === 'stream: [DONE]') continue;
+          try {          
+            newText += line;
           } catch (e) {
             console.error('Error parsing JSON:', e);
           }
         }
-        return newText;
+        fn(newText);
       }
     });
-    console.log('response', response);
-    
-    return response.data.text;
+
   } catch (error) {
     throw new AxiosError((error as Error).stack);
   }
-} */
+}

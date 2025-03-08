@@ -21,13 +21,13 @@ const AITips = ({ car }: IAITipsProps) => {
 
   return (
     <div className="ai-response">
-      <button className="btn btn-primary" onClick={() => showCarInfo(car)}>Get Tips by Gemini AI</button>
+      <button className="btn btn-primary" onClick={() => showCarInfo(car)}>Get Tips by Claude AI</button>
       <p>{AIResponse.split('\n').map((line, index) => (
                               <span key={index}>
-                                {line.includes("**") ?
-                                line.split('**').map((chunk, index) => {
+                                {line.includes("*") ?
+                                line.split('*').map((chunk, index) => {
                                   if (index === 1) {
-                                    return <b key={index}>{chunk}</b>;
+                                    return <span key={index}>&nbsp;{chunk}</span>;
                                   }
                                   return `${chunk}`
                                 })
